@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String URL_IMAGES = "https://images11.domashnyochag.ru/upload/img_cache/14d/14dcbc2af577a140a18cf2923e07f881_ce_740x947x0x0_cropped_666x852.jpg";
     ImageView mImageView;
     Button btnDrawable, btnPlaceholder, btnUrl, btnError, btnResize, btnRotate, btnScale;
-
+    int i = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.btnDrawable)
             Glide.with(this).load(R.drawable.imagedefault).into(mImageView);
         else if (v.getId() == R.id.btnPlaceholder)
@@ -48,11 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if (v.getId() == R.id.btnUrl)
             Glide.with(this).load(URL_IMAGES).placeholder(R.drawable.ic_baseline_image_24).into(mImageView);
         else if (v.getId() == R.id.btnResize)
-            Glide.with(this).load(URL_IMAGES).placeholder(R.drawable.ic_baseline_image_24).apply(new RequestOptions().override(20, 20)).into(mImageView);
+            Glide.with(this).load(URL_IMAGES).placeholder(R.drawable.ic_baseline_image_24).apply(new RequestOptions().override(200, 200)).into(mImageView);
         else if (v.getId() == R.id.btnRotate)
             Glide.with(this).load(URL_IMAGES).transform(new RotateTransformation(90f)).placeholder(R.drawable.ic_baseline_image_24).into(mImageView);
-        else if (v.getId() == R.id.btnScale)
-            Glide.with(this).load(URL_IMAGES).centerCrop().placeholder(R.drawable.ic_baseline_image_24).into(mImageView);
+        else if (v.getId() == R.id.btnScale) {
+            if(i == 1) Glide.with(this).load(URL_IMAGES).fitCenter().placeholder(R.drawable.ic_baseline_image_24).into(mImageView);;
+            if(i == 2) Glide.with(this).load(URL_IMAGES).centerCrop().placeholder(R.drawable.ic_baseline_image_24).into(mImageView);
+            i++;
+            if(i == 3) i = 1;
+        }
         else if (v.getId() == R.id.btnError)
             Glide.with(this).load("www.xpcom.ru").error(R.drawable.ic_baseline_error_24).into(mImageView);
         else Log.d(TAG, "No Button");
